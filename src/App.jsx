@@ -6,10 +6,16 @@ import Notification from "./components/Notification/Notification.jsx";
 import { useEffect, useState } from "react";
 
 export default function App() {
-  const [clicks, setClicks] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
+  const [clicks, setClicks] = useState(() => {
+    const savedFeedback = localStorage.getItem("feedback");
+    if (savedFeedback !== null) {
+      return JSON.parse(savedFeedback);
+    }
+    return {
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    };
   });
 
   const updateFeedback = (feedbackType) => {
@@ -29,7 +35,9 @@ export default function App() {
 
   const totalFeedback = clicks.good + clicks.neutral + clicks.bad;
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    localStorage.setItem("feedback", JSON.stringify(clicks));
+  }, [clicks]);
 
   return (
     <>
