@@ -2,6 +2,7 @@ import "./App.css";
 import Feedback from "./components/Feedback/Feedback.jsx";
 import Description from "./components/Description/Description.jsx";
 import Options from "./components/Options/Options.jsx";
+import Notification from "./components/Notification/Notification.jsx";
 import { useState } from "react";
 
 export default function App() {
@@ -18,11 +19,13 @@ export default function App() {
     }));
   };
 
+  const totalFeedback = clicks.good + clicks.neutral + clicks.bad;
+
   return (
     <>
       <Description />
       <Options updateFeedback={updateFeedback} />
-      <Feedback clicks={clicks} />
+      {totalFeedback === 0 ? <Notification /> : <Feedback clicks={clicks} />}
     </>
   );
 }
