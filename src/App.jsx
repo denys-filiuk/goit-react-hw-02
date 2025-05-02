@@ -3,7 +3,7 @@ import Feedback from "./components/Feedback/Feedback.jsx";
 import Description from "./components/Description/Description.jsx";
 import Options from "./components/Options/Options.jsx";
 import Notification from "./components/Notification/Notification.jsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function App() {
   const [clicks, setClicks] = useState({
@@ -29,6 +29,8 @@ export default function App() {
 
   const totalFeedback = clicks.good + clicks.neutral + clicks.bad;
 
+  useEffect(() => {}, []);
+
   return (
     <>
       <Description />
@@ -37,7 +39,11 @@ export default function App() {
         totalFeedback={totalFeedback}
         resetFeedback={resetFeedback}
       />
-      {totalFeedback === 0 ? <Notification /> : <Feedback clicks={clicks} />}
+      {totalFeedback === 0 ? (
+        <Notification />
+      ) : (
+        <Feedback clicks={clicks} totalFeedback={totalFeedback} />
+      )}
     </>
   );
 }
