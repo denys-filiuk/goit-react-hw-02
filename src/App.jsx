@@ -19,12 +19,24 @@ export default function App() {
     }));
   };
 
+  const resetFeedback = () => {
+    setClicks({
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    });
+  };
+
   const totalFeedback = clicks.good + clicks.neutral + clicks.bad;
 
   return (
     <>
       <Description />
-      <Options updateFeedback={updateFeedback} />
+      <Options
+        updateFeedback={updateFeedback}
+        totalFeedback={totalFeedback}
+        resetFeedback={resetFeedback}
+      />
       {totalFeedback === 0 ? <Notification /> : <Feedback clicks={clicks} />}
     </>
   );
