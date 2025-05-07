@@ -34,6 +34,7 @@ export default function App() {
   };
 
   const totalFeedback = clicks.good + clicks.neutral + clicks.bad;
+  const positiveFeedback = Math.round((clicks.good / totalFeedback) * 100);
 
   useEffect(() => {
     localStorage.setItem("feedback", JSON.stringify(clicks));
@@ -50,7 +51,11 @@ export default function App() {
       {totalFeedback === 0 ? (
         <Notification />
       ) : (
-        <Feedback clicks={clicks} totalFeedback={totalFeedback} />
+        <Feedback
+          clicks={clicks}
+          totalFeedback={totalFeedback}
+          positiveFeedback={positiveFeedback}
+        />
       )}
     </>
   );
